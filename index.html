@@ -1,0 +1,238 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="shortcut icon" href="logo.png" />
+  <link rel="apple-touch-icon" href="logo.png" />
+  <!-- Meta -->
+  <title>RokcetX Tron Bridge</title>
+  <meta
+    name="description"
+    content="XBX Bridge Game"
+  />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, minimum-scale=1" />
+  <meta name="theme-color" content="#1FC7D4" />
+  <meta name="twitter:image" content="https://bridge.xbxcoin.com/" />
+  <meta
+    name="twitter:description"
+    content="This is RocketX Bridge platform. Let's swap RKTX token!"
+  />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="XBX token bridge" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://kit-pro.fontawesome.com/releases/v5.15.4/css/pro.min.css" />
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <!-- sweet alert -->
+  <script src="sweetalert2.min.js"></script>
+  <link rel="stylesheet" href="sweetalert.min.css">
+
+  <!-- abi -->
+  <script src="abi.js"></script>
+  <script src="common.js"></script>
+
+
+</head>
+<body class="darkmode">
+  <section>
+    <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+     <div class="container-fluid">
+       <a class="navbar-brand" href="#"><img src="images/rktx-logo.png" style="width: 11rem"/></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main_nav"  aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="main_nav">
+        <ul class="navbar-nav ms-auto">
+          <button class="button description hidden mr-2 btn-primary" id="myBalance"><i class="fas fa-wallet pr-1"></i></button>
+          <button class="button description hidden mr-2 btn-primary" id="myAccount"><i class="fas fa-wallet pr-1"></i></button>
+          <!-- <button class="button description hidden mr-2 btn-primary" id="chainType"><i class="fas fa-wallet pr-1"></i></button> -->
+          <button class="button connect-wallet description"><i class="fas fa-wallet pr-1"></i>Connect Wallet</button>
+        </ul>
+      </div> 
+     </div> 
+    </nav>
+
+
+    </header>
+    <div class="page-container">
+      <div id="content" class="container">
+          <div class="row justify-content-center mt-5 white">
+              <div class="col-custom col-lg-5 col-md-6 px-lg-0 px-0">
+                <div class="card card-main">
+                  <div class="card-body"
+                    <h5 class="mb-3 d-flex align-items-center justify-content-center text-uppercase text-center white">BSC &lt;&gt; Tron
+                    </h5>
+                    <hr style="background-color: rgba(255, 255, 255, 0.3);">
+                    <div class="p-form-group mb-3">
+                      <label class="form-label p-main-text">Asset</label>
+                      <div class="p-input-group p-select-asset mt-1 justify-content-between">
+                        <div class="d-flex align-items-center">
+                          <img src="images/rktx.png" height="25" data-image-blur-on-load-update-occured="true" style="filter: opacity(1);" />
+                          <span class="ms-2 p-main-text">&nbsp;RKTX</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="p-bridge d-flex align-items-center">
+                      <div class="p-form-group mb-3">
+                        <label class="form-label p-main-text">From (<span id="fromAmount" class="fromAmount">0</span>)</label>
+                          <div class="p-network">
+                            <img src="images/bsc-icon.svg" height="36" alt="eth-network" class="from-network-image"/>
+                            <span class="badge p-network-tag from-network-tag">BEP20</span>
+                            <span class="text-connected from-network-status hidden">Connected</span>
+                          </div>
+                          <div class="p-network-name" data-toggle="modal">
+                            <span class="from-network-title">Binance Smart Chain Network</span>
+                            <div class="">
+                              <!-- <a class="btn btn-sm btn-select-network opacity-08" onclick="showNetwork('from')">></a> -->
+                            </div>
+                          </div>
+                      </div>
+                      <div class="p-bridge-swap">
+                        <button type="button" class="btn btn-link text-warning btn-sm px-1 py-0" title="Change Network" onclick="changeNetwork()"><span><i class="fas fa-exchange-alt"></i></span></button>
+                      </div>
+                      <div class="p-form-group mb-3">
+                        <label class="form-label p-main-text">To (<span id="toAmount" class="toAmount">0</span>)</label>
+                        <div class="p-network">
+                          <img height="36" src="images/trx-icon.svg" alt="bsc-network" class="end-network-image"/>
+                          <span class="badge p-network-tag end-network-tag" >TRC20</span>
+                          <!-- <span class="text-connected" class="end-network-status">Connected</span> -->
+                        </div>
+                        <div class="p-network-name" data-toggle="modal" >
+                          <span class="end-network-title">Tron Network</span>
+                          <div class="">
+                            <!-- <a class="btn btn-sm btn-select-network opacity-08" onclick="showNetwork('to')">></a> -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="p-form-group mb-3">
+                        <div class="mb-2 d-flex align-items-center justify-content-between">
+                          <label class="form-label p-main-text">Amount</label>
+                          <span class="font-14 me-2 text-warning">Available: <b id="xbxBalance">0 </b></span>
+                        </div>
+                        <div class="p-input-group">
+                          <input type="number" class="form-control px-0" placeholder="0" value="0" id="input-amount" disabled="" onkeyup="validInput()">
+                          <button type="button" class="btn btn-primary" onclick="selectMax()" disabled id="selectMax">MAX</button>
+                        </div>
+                        <hr class="mb-1" style="background-color: rgba(255, 255, 255, 0.3)">
+                        <div class="align-items-center text-nowrap justify-content-between py-2">
+                          <span class="font-13"><i class="fas fa-exclamation-circle"></i> Reminder:</span><br/>
+                          <p class="reminer-font white-break"><i class="dot"></i>BSC-TRON Crosschain Fee is 0.005 BNB</p>
+                          <p class="reminer-font white-break"><i class="dot"></i>TRON-BSC Crosschain Fee is 1 TRX</p>
+                          <p class="reminer-font white-break"><i class="dot"></i>Estimated Time of Crosschain Arrival is 1-2 min</p>
+                          <p class="reminer-font white-break"><i class="dot"></i>Minimum Swap Amount is 1000 RKTX</p>
+                        </div>
+                    </div>
+
+                    <div id="bsc-destination" class="hidden">
+                      <div class="text-left ml-2">
+                        <label class="form-label p-main-text">Destination</label>
+                      </div>
+                      <div class="p-form-group mb-2 pt-1">
+                        <div class="p-input-group" style="position: relative;">
+                          <img src="images/ether.webp" height="18" style="position: absolute; left: 0px; top: 12px; filter: opacity(1);" data-image-blur-on-load-update-occured="true">
+                          <input type="text" class="form-control pe-0 ps-4 pb-0" id="bsc-destination-address" onkeyup="validInput()" placeholder="Input your bsc destination address" value="" style="font-size: 14px;">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div id="tron-destination" class="hidden">
+                      <div class="text-left ml-2">
+                        <label class="form-label p-main-text">Destination</label>
+                      </div>
+                      <div class="p-form-group mb-2 pt-1">
+                        <div class="p-input-group" style="position: relative;">
+                          <img src="images/trx-icon.svg" height="18" style="position: absolute; left: 0px; top: 12px; filter: opacity(1);" data-image-blur-on-load-update-occured="true">
+                          <input type="text" class="form-control pe-0 ps-4 pb-0" id="tron-destination-address" onkeyup="validInput()" placeholder="Input your tron destination address" value="" style="font-size: 14px;">
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="mt-4 pt-1">
+                      <button data-bs-toggle="modal" id="btn-connect-wallet" data-bs-target="#stepModal" type="button" class="btn-connect-wallet btn btn-primary btn-lg w-100 btn btn-primary" onclick="connectWallet()" ><i class="fas fa-wallet pr-1"></i>Connect Wallet</button>
+                      <div class="bottom-error text-center text-warning mt-3 font-14"><i class="fas fa-exclamation-triangle pr-1"></i>Please connect your wallet to swap</div>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+          </div>
+      </div> 
+    </div>
+    <div class="pp-footer">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-4 text-muted mt-md-0 mt-3 text-md-start text-center">Copyright © 2021. All Rights Reserved by XBX</div>
+          <div class="col-md-4 text-center text-muted">Version 1.0.0</div>
+          <div class="col-md-4">
+            <a class="text-warning text-decoration-none d-flex align-items-center justify-content-md-end justify-content-center" href="mailto:xbxbridge@gmail.com"><i class="fas fa-envelope mr-1"></i><span>Customer Support</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+
+<div class="modal fade in" id="selectNetworkModal_in" tabindex="-1" aria-labelledby="selectNetworkModal_inLabel" aria-modal="true" role="dialog">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="modal-title text-dark" id="selectNetworkModal_inLabel">Select Network</h6>
+        <button type="button" class="close btn-close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body p-0">
+        <div class="c-list border-b px-3 py-2 d-flex align-items-center" data-bs-dismiss="modal" onclick="switchNetwork('eth')" id="ethereum-network">
+          <img src="images/ether.webp" width="26px" class="me-3 mr-1" data-image-blur-on-load-update-occured="true" style="filter: opacity(1);">
+          <div class="text-selected">Ethereum Network<span id="eth_status" class="hidden"><i class="ml-2 fas fa-check" style="color: green"></i></span>
+          </div>
+        </div>
+        <div class="c-list border-b px-3 py-2 d-flex align-items-center mr-1" data-bs-dismiss="modal" onclick="switchNetwork('bnb')" id="binance-network">
+          <img src="images/trx-icon.svg" width="26px" class="me-3 mr-1" data-image-blur-on-load-update-occured="true" style="filter: opacity(1);">
+          <div>Ethereum Network <span id="bsc_status" class="hidden"><i class="ml-2 fas fa-check" style="color: green"></i></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade in" id="tronWalletModal" tabindex="-1" aria-labelledby="selectNetworkModal_inLabel" aria-modal="true" role="dialog">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="modal-title text-dark" id="selectNetworkModal_inLabel">Connect a Wallet</h6>
+        <button type="button" class="close btn-close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body p-0">
+        <div class="c-list border-b px-3 py-2 d-flex align-items-center mr-1 pointer" data-bs-dismiss="modal" id="tron-network" onclick="connectTronWallet()">
+          <img src="images/trx-icon.svg" width="26px" class="me-3 mr-1" data-image-blur-on-load-update-occured="true" style="filter: opacity(1);">
+          <div>TronLink Wallet <span id="bsc_status" class="hidden"><i class="ml-2 fas fa-check" style="color: green"></i></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" 
+crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/web3/dist/web3.min.js"></script>
+<script type="text/javascript" src="js/web3/web3modal.js"></script>
+<script type="text/javascript" src="js/web3/evm-chains/index.min.js"></script>
+<script type="text/javascript" src="js/web3/walletconnect/index.min.js"></script>
+<script type="text/javascript" src="js/web3/fortmatic/index.min.js"></script>
+<script type="text/javascript" src="js/tronWeb/index.js"></script>
+
+<script src="main.js"></script>
+<script type="text/javascript" src="bignumber.js"></script>
+
+</html>
+
+
